@@ -1,0 +1,41 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+      <div>
+        <button onClick="onStart()">Start</button>
+        <button onClick="onPlay()">Play</button>
+        <button onClick="onPause()">Pause</button>
+        <button onClick="onFinish()">Finish</button>
+      </div>
+      <div>
+          <h5 id="message"></h5>
+      </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+      const socket = io("http://localhost:3000");
+
+      function onStart() {
+        socket.emit("start");
+      }
+      function onPlay() {
+        socket.emit("play");
+      }
+      function onPause() {
+        socket.emit("pause");
+      }
+      function onFinish() {
+        socket.emit("finish");
+      }
+
+      socket.on('message', function(message) {
+        document.getElementById('message').innerHTML = message
+      })
+    </script>
+  </body>
+</html>
