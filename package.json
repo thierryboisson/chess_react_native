@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
     "dev": "ts-node-dev --respawn --transpile-only ./app.ts",
-    "prod": "tsc && node ./build/app.js"
+    "prod": "tsc && node ./build/app.js",
+    "test": "jest",
+    "test:debug": "node --debug-brk --inspect ./node_modules/.bin/jest -i"
   },
   "author": " <Thierry Boisson> (fedasil.com)",
   "license": "ISC",
@@ -18,5 +19,13 @@
     "socket.io": "^2.3.0",
     "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.9",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.0"
   }
 }
