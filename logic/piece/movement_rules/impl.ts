@@ -1,5 +1,5 @@
 import {MovementRules} from "./contract/MovementRules";
-import { calculateWithMovement, calculateWithDirection } from "../utils/utils";
+import { calculateWithMovement, calculateWithDirection } from "../movement_rules-utils/movement_rules-utils";
 import { DEFAULT_POSITION } from "../models";
 
 export const MovementRulesKing: MovementRules = {
@@ -46,7 +46,7 @@ export const MovementRulesPawnWhite: MovementRules = {
         let positionsAllowed: Array<number> = []
 
         // check if the pawn play first time by check a position
-        if(position >= DEFAULT_POSITION.PAWN_WHITE_1 && position <= DEFAULT_POSITION.PAWN_WHITE_1) {
+        if(position >= DEFAULT_POSITION.PAWN_WHITE_1 && position <= DEFAULT_POSITION.PAWN_WHITE_8) {
             positionsAllowed = positionsAllowed.concat(calculateWithMovement(movementAllowedWithoutEnemyPieceFirstPlay, position, positionPlayerPiece))
         }
 
@@ -71,7 +71,7 @@ export const MovementRulesPawnBlack: MovementRules = {
         positionsAllowed = calculateWithMovement(movementAllowedWithoutEnemyPiece, position, positionPlayerPiece)
 
         // check if the pawn play first time by check a position
-        if(position >= DEFAULT_POSITION.PAWN_WHITE_1 && position <= DEFAULT_POSITION.PAWN_WHITE_1) {
+        if(position >= DEFAULT_POSITION.PAWN_BLACK_1 && position <= DEFAULT_POSITION.PAWN_BLACK_8) {
             positionsAllowed = positionsAllowed.concat(calculateWithMovement(movementAllowedWithoutEnemyPieceFirstPlay, position, positionPlayerPiece))
         }
 

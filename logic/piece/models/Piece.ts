@@ -25,7 +25,7 @@ class Piece{
         this.id = id
         this.player = player
         this.type = type
-        this.position = parseInt(DEFAULT_POSITION[id])
+        this.position = DEFAULT_POSITION[id]
         this.hasBeenPlayerOneTime = false,
         this.movementRules = MOVEMENT_RULES(player)[type]
         this.positionsAllowed = []
@@ -39,17 +39,22 @@ class Piece{
             this.position = position
 
         } else {
-            console.error("this position is not allowed")
+            throw new Error("this position is not allowed")
         }
     }
 
     promote(type: TYPE_PIECE){
-        if(this.type === TYPE_PIECE.PAWN){
-            this.type = type
-            this.movementRules = MOVEMENT_RULES(this.player)[type]
-        } else {
-            console.error("the piece type have to be a pawn to promote")
+        if(this.type !== TYPE_PIECE.PAWN){
+            throw new Error("the piece type have to be a pawn to promote")
+            
+        } 
+
+        if(type === TYPE_PIECE.PAWN || type === TYPE_PIECE.KING){
+            throw new Error("new piece type can't be pawn or king")
         }
+
+        this.type = type
+        this.movementRules = MOVEMENT_RULES(this.player)[type]
     }
     calculatePositionAllowed(positionsPlayerPiece: Array<number>, positionsOppenentPiece: Array<number>){
         this.positionsAllowed = this.movementRules.calculate(this.position, positionsPlayerPiece, positionsOppenentPiece)
