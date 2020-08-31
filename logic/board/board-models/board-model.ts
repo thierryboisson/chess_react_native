@@ -49,7 +49,7 @@ class Board {
 
         // refresh postionAllowed with a new position
         this.pieces = refreshPositionAllowed(this.pieces)
-        this.emitter.emit(EMITTER_ACTION.MOVE_PIECE, {pieceId: this.pieceSelected.id, newPosition})
+        this.emitter.emit(EMITTER_ACTION.MOVE_PIECE, {pieceId: this.pieceSelected.id, position: newPosition})
         // check if it's checkmate
         const potentialKingCheckMate = fetchPiece("type", TYPE_PIECE.KING, piecesSorted.opponentPiece)[0]
         if(isCheckmate(
