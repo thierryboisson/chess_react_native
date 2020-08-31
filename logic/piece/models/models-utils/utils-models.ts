@@ -1,4 +1,5 @@
 import { PIECE_ID, PLAYER, TYPE_PIECE, Piece } from "..";
+import { sortByPlayer } from "../../../board/board-utils/board-utils";
 
 /**
  * Description - method to fetch Piece in list by key and value
@@ -14,12 +15,14 @@ export const fetchPiece = (key: "player"|"type", value: PLAYER|TYPE_PIECE, listP
  * @param pieces 
  */
 export const getById = (id: PIECE_ID, pieces: Array<Piece>):Piece|null => {
-    pieces.forEach(piece => {
-        if(piece.id === id){
-            return piece
+    let result: Piece|null = null
+    for(let i = 0; i < pieces.length; i++){
+        if(pieces[i].id === id){
+            result = pieces[i]
+            break;
         }
-    })
-    return null
+    }
+    return result
 }
 
 /**
@@ -29,11 +32,12 @@ export const getById = (id: PIECE_ID, pieces: Array<Piece>):Piece|null => {
  */
 export const getByPosition = (position: number, pieces: Array<Piece>):Piece|null => {
     let result: Piece|null = null
-    pieces.forEach(piece => {
-        if(piece.position === position){
-            result = piece
+    for(let i = 0;i < pieces.length; i++){
+        if(pieces[i].position === position){
+            result = pieces[i]
+            break;
         }
-    })
+    }
     return result
 }
 
@@ -65,5 +69,22 @@ export const initPieces = () => {
         const id = PIECE_ID[pieceId]
         pieces.push(new Piece(id, player, type))
     }
+    
     return pieces
+}
+
+/**
+ * Description - method to move piece
+ * @param newPosition 
+ * @param piece 
+ * @param positionsPlayerPiece 
+ * @param positionOpponentPiece 
+ */
+export const movePiece = (newPosition: number, piece: Piece, positionsPlayerPiece: Array<number>, positionOpponentPiece: Array<number>) => {
+
+    if(!piece.positionsAllowed.length){
+        piece.calculatePositionAllowed(positionsPlayerPiece, positionOpponentPiece)
+    }
+    piece.move(newPosition)
+    piece.calculatePositionAllowed(positionsPlayerPiece, positionOpponentPiece)
 }

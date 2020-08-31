@@ -1,5 +1,5 @@
 import { MovementRules } from "../movement_rules/contract/MovementRules";
-import { MovementRulesPawnWhite, MovementRulesKing, MovementRulesQueen, MovementRulesRook, MovementRulesBishop, MovementRulesPawnBlack } from "../movement_rules/impl";
+import { MovementRulesPawnWhite, MovementRulesKing, MovementRulesQueen, MovementRulesRook, MovementRulesBishop, MovementRulesPawnBlack } from "../movement_rules/movement-rules-impl";
 
 /**
  * Description Type of Piece

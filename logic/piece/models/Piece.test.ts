@@ -1,6 +1,6 @@
 import Piece from "./Piece"
 import { PIECE_ID, PLAYER, TYPE_PIECE, DEFAULT_POSITION, fetchPiece, initPieces } from "."
-import { MovementRulesBishop } from "../movement_rules/impl"
+import { MovementRulesBishop } from "../movement_rules/movement-rules-impl"
 import { sortPositions } from "../movement_rules-utils/movement_rules-utils.test"
 
 

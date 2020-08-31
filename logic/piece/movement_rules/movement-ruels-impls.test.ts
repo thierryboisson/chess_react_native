@@ -1,4 +1,4 @@
-import {MovementRulesKing, MovementRulesQueen, MovementRulesRook, MovementRulesBishop, MovementRulesKnight, MovementRulesPawnWhite, MovementRulesPawnBlack} from './impl'
+import {MovementRulesKing, MovementRulesQueen, MovementRulesRook, MovementRulesBishop, MovementRulesKnight, MovementRulesPawnWhite, MovementRulesPawnBlack} from './movement-rules-impl'
 import { sortPositions } from '../movement_rules-utils/movement_rules-utils.test'
 
 
