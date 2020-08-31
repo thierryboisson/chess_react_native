@@ -1,5 +1,8 @@
 import express = require('express');
-import { GameEvents, ResponseEvents } from './constants';
+
+import {LISTENER_ACTION} from './view-communication/listener/listener-types/listener-types'
+import ChessListener from './view-communication/listener/listener-model/listener-model'
+import { VIEW_POSITION, VIEW_PIECE_ID } from './view-communication/models/view-commincation-models';
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -16,20 +19,18 @@ app.use(express.static(__dirname + '/public'))
 
 const io = require('socket.io')(http)
 io.sockets.on('connection', (socket: any) => {
-  console.log("socket connection")
+  console.log("socket connection")  
+  const chessListener = new ChessListener(socket)
 
-  socket.on(GameEvents.START, function() {
-    socket.emit(ResponseEvents.MESSAGE, "Welcom to the game")
-  });
-  socket.on(GameEvents.PLAY, function() {
-    socket.emit(ResponseEvents.MESSAGE, "lest's play")
-  });
-  socket.on(GameEvents.PAUSE, function() {
-    socket.emit(ResponseEvents.MESSAGE, "Take a break time")
-  });
-  socket.on(GameEvents.FINISH, function() {
-    socket.emit(ResponseEvents.MESSAGE, "Good By")
-  });
+  socket.on(LISTENER_ACTION.SELECT_PIECE, function(pieceId: VIEW_PIECE_ID){
+    chessListener.selectPiece(pieceId)
+    
+  })
+
+  socket.on(LISTENER_ACTION.MOVE_PIECE, function(newPosition: VIEW_POSITION) {
+    chessListener.movePiece(newPosition)
+    
+  })
 })
 
 const server = http.listen(3000, function(){

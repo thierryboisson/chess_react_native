@@ -3,6 +3,8 @@ import { movePiece, getById, fetchPiece, getByPosition } from "../../piece/model
 import { sortByPlayer } from "../board-utils/board-utils";
 import { isCheckmate } from "../board_rules/board_rules";
 import { attackPiece, refreshPositionAllowed, changePlayer } from "./board-model-utils/board-model-utils";
+import ChessEmitter from "../../../view-communication/emitter/emitter-model/emitter-model";
+import { EMITTER_ACTION } from "../../../view-communication/emitter/emitter-types/emitter-types";
 
 /**
  * Description - Board model to manage chess game
@@ -12,14 +14,14 @@ class Board {
     player: PLAYER;
     pieceSelected: Piece|null;
     winner: PLAYER|null;
+    emitter: ChessEmitter
 
-
-    constructor(){
+    constructor(emitter: ChessEmitter){
         this.pieces = initPieces()
         this.player = PLAYER.WHITE
         this.pieceSelected = null
         this.winner = null
-
+        this.emitter = emitter
     }
 
     /**
@@ -47,7 +49,7 @@ class Board {
 
         // refresh postionAllowed with a new position
         this.pieces = refreshPositionAllowed(this.pieces)
-        
+        this.emitter.emit(EMITTER_ACTION.MOVE_PIECE, {pieceId: this.pieceSelected.id, newPosition})
         // check if it's checkmate
         const potentialKingCheckMate = fetchPiece("type", TYPE_PIECE.KING, piecesSorted.opponentPiece)[0]
         if(isCheckmate(
@@ -56,8 +58,9 @@ class Board {
             sortByPlayer(this.player, this.pieces).playerPiece.map(piece => piece.positionsAllowed).reduce((acc, currentValue) => acc.concat(currentValue))
         )){
             this.win()
+            this.emitter.emit(EMITTER_ACTION.WIN, this.player)
+            return
         }
-
         this.pieceSelected = null
         this.player = changePlayer(this.player)
     }
@@ -73,6 +76,7 @@ class Board {
         if(this.pieceSelected?.player !== this.player){
             throw new Error('the piece does not belong to the current player')
         }
+        this.emitter.emit(EMITTER_ACTION.SELECT_PIECE, this.pieceSelected.positionsAllowed)
     }
     
     /**

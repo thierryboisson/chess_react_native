@@ -7,10 +7,8 @@
   </head>
   <body>
       <div>
-        <button onClick="onStart()">Start</button>
-        <button onClick="onPlay()">Play</button>
-        <button onClick="onPause()">Pause</button>
-        <button onClick="onFinish()">Finish</button>
+        <button onClick="onMove()">Move to a4</button>
+        <button onClick="onSelect()">Select pawn white 1</button>
       </div>
       <div>
           <h5 id="message"></h5>
@@ -20,19 +18,12 @@
     <script>
       const socket = io("http://localhost:3000");
 
-      function onStart() {
-        socket.emit("start");
+      function onMove() {
+        socket.emit("MOVE_PIECE", "a4");
       }
-      function onPlay() {
-        socket.emit("play");
+      function onSelect() {
+        socket.emit("SELECT_PIECE", ("pawn-white-1"));
       }
-      function onPause() {
-        socket.emit("pause");
-      }
-      function onFinish() {
-        socket.emit("finish");
-      }
-
       socket.on('message', function(message) {
         document.getElementById('message').innerHTML = message
       })

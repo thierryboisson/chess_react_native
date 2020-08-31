@@ -1,5 +1,6 @@
 import { PIECE_ID, PLAYER, TYPE_PIECE, Piece } from "..";
 import { sortByPlayer } from "../../../board/board-utils/board-utils";
+import { refreshPositionAllowed } from "../../../board/board-models/board-model-utils/board-model-utils";
 
 /**
  * Description - method to fetch Piece in list by key and value
@@ -69,8 +70,8 @@ export const initPieces = () => {
         const id = PIECE_ID[pieceId]
         pieces.push(new Piece(id, player, type))
     }
-    
-    return pieces
+
+    return refreshPositionAllowed(pieces)
 }
 
 /**
