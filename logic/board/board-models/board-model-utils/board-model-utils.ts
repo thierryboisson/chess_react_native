@@ -1,5 +1,5 @@
 import { getByPosition } from "../../../piece/models/models-utils/utils-models"
-import { PLAYER, Piece } from "../../../piece/models"
+import { PLAYER, Piece, PIECE_ID } from "../../../piece/models"
 import { sortByPlayer } from "../../board-utils/board-utils"
 
 /**
@@ -25,17 +25,16 @@ export const refreshPositionAllowed = (pieces: Array<Piece>) => {
  * @param opponentPieces 
  * @param pieces 
  */
-export function attackPiece(attackPosition: number, opponentPieces: Array<Piece>, pieces: Array<Piece>):Array<Piece>{
+export function attackPiece(attackPosition: number, opponentPieces: Array<Piece>, pieces: Array<Piece>):PIECE_ID|null{
     const pieceOpponentAttacked = getByPosition(attackPosition, opponentPieces)
     if(pieceOpponentAttacked !== null){
-        const result = pieces.filter(piece => piece.id !== pieceOpponentAttacked.id)
-        return result
+        return pieceOpponentAttacked.id   
     }
-    return pieces
+    return null
 }
 
 /**
- * Description - method to switch player
+ * Description - method to switch
  * @param player 
  */
 export function changePlayer(player:PLAYER):PLAYER{

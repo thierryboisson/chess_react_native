@@ -3,30 +3,101 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <title>Chess</title>
   </head>
   <body>
-      <div>
-        <button onClick="onMove()">Move to a4</button>
-        <button onClick="onSelect()">Select pawn white 1</button>
+      <div id="board-container">
+          <div id="board">
+            <div id="pieces-container"></div>
+            <div class="line">
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+            </div>
+            <div class="line">
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+            </div>
+            <div class="line">
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+            </div>
+            <div class="line">
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+            </div>
+            <div class="line">
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+            </div>
+            <div class="line">
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+            </div>
+            <div class="line">
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+            </div>
+            <div class="line">
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+              <div class="case black"></div> 
+              <div class="case white"></div> 
+            </div>
+          </div>
       </div>
-      <div>
-          <h5 id="message"></h5>
-      </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-    <script>
-      const socket = io("http://localhost:3000");
-
-      function onMove() {
-        socket.emit("MOVE_PIECE", "a4");
-      }
-      function onSelect() {
-        socket.emit("SELECT_PIECE", ("pawn-white-1"));
-      }
-      socket.on('message', function(message) {
-        document.getElementById('message').innerHTML = message
-      })
-    </script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/constants.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/domActions.js"></script>
+    <script src="scripts/listener.js"></script>
+    <script src="scripts/emitter.js"></script>
   </body>
 </html>

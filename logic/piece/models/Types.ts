@@ -1,5 +1,5 @@
 import { MovementRules } from "../movement_rules/contract/MovementRules";
-import { MovementRulesPawnWhite, MovementRulesKing, MovementRulesQueen, MovementRulesRook, MovementRulesBishop, MovementRulesPawnBlack } from "../movement_rules/movement-rules-impl";
+import { MovementRulesPawnWhite, MovementRulesKing, MovementRulesQueen, MovementRulesRook, MovementRulesBishop, MovementRulesPawnBlack, MovementRulesKnight } from "../movement_rules/movement-rules-impl";
 
 /**
  * Description Type of Piece
@@ -19,7 +19,7 @@ export const MOVEMENT_RULES = (player:PLAYER):{[key: string]: MovementRules} => 
     QUEEN: MovementRulesQueen,
     ROOK: MovementRulesRook,
     BISHOP: MovementRulesBishop,
-    KNIGHT: MovementRulesBishop
+    KNIGHT: MovementRulesKnight
 })
 
 export enum PLAYER {
@@ -77,8 +77,8 @@ export enum DEFAULT_POSITION {
     ROOK_WHITE_2=63,
     KNIGHT_WHITE_1=57,
     KNIGHT_WHITE_2=62,
-    KING_WHITE=60,
-    QUEEN_WHITE=59,
+    KING_WHITE=59,
+    QUEEN_WHITE=60,
     PAWN_BLACK_1=8,
     PAWN_BLACK_2=9,
     PAWN_BLACK_3=10,
@@ -93,6 +93,6 @@ export enum DEFAULT_POSITION {
     ROOK_BLACK_2=7,
     KNIGHT_BLACK_1=1,
     KNIGHT_BLACK_2=6,
-    KING_BLACK=4,
-    QUEEN_BLACK=3
+    KING_BLACK=3,
+    QUEEN_BLACK=4
 }

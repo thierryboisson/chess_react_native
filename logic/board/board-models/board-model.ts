@@ -22,6 +22,7 @@ class Board {
         this.pieceSelected = null
         this.winner = null
         this.emitter = emitter
+        this.emitter.emit(EMITTER_ACTION.INIT_PIECE, {pieces: this.pieces, currentPlayer: this.player})
     }
 
     /**
@@ -45,7 +46,11 @@ class Board {
         )
         
         // attack piece if there are in new postion
-        this.pieces = attackPiece(newPosition, piecesSorted.opponentPiece, this.pieces)
+        const pieceKilledId: PIECE_ID|null = attackPiece(newPosition, piecesSorted.opponentPiece, this.pieces)
+        if(pieceKilledId){
+            this.emitter.emit(EMITTER_ACTION.KILL_PIECE, {id: pieceKilledId})
+            this.pieces = this.pieces.filter(piece => piece.id !== pieceKilledId)
+        }
 
         // refresh postionAllowed with a new position
         this.pieces = refreshPositionAllowed(this.pieces)
@@ -72,11 +77,11 @@ class Board {
      * @param pieceId 
      */
     selectPiece(pieceId: PIECE_ID){
-        this.pieceSelected = getById(pieceId, this.pieces)
-        if(this.pieceSelected?.player !== this.player){
-            throw new Error('the piece does not belong to the current player')
-        }
-        this.emitter.emit(EMITTER_ACTION.SELECT_PIECE, this.pieceSelected.positionsAllowed)
+        const pieceSelected:Piece|null = getById(pieceId, this.pieces)
+        if(pieceSelected?.player === this.player){
+            this.pieceSelected = pieceSelected
+            this.emitter.emit(EMITTER_ACTION.SELECT_PIECE, this.pieceSelected.positionsAllowed)
+        }  
     }
     
     /**
