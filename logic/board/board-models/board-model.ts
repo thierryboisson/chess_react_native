@@ -34,19 +34,17 @@ class Board {
             throw new Error("the piece is not selected")
         }
         const piecesSorted = sortByPlayer(this.player, this.pieces)
-        const positionsPlayerPiece = piecesSorted.playerPiece.map(piecePlayer => piecePlayer.position)
-        const positionsOpponentPiece =  piecesSorted.opponentPiece.map(pieceOpponent => pieceOpponent.position)
-
+        
         // movePiece
         movePiece(
             newPosition, 
             this.pieceSelected, 
-            positionsPlayerPiece,
-            positionsOpponentPiece
+            piecesSorted.playerPieces.map(piecePlayer => piecePlayer.position),
+            piecesSorted.opponentPieces.map(pieceOpponent => pieceOpponent.position)
         )
         
         // attack piece if there are in new postion
-        const pieceKilledId: PIECE_ID|null = attackPiece(newPosition, piecesSorted.opponentPiece, this.pieces)
+        const pieceKilledId: PIECE_ID|null = attackPiece(newPosition, piecesSorted.opponentPieces, this.pieces)
         if(pieceKilledId){
             this.emitter.emit(EMITTER_ACTION.KILL_PIECE, {id: pieceKilledId})
             this.pieces = this.pieces.filter(piece => piece.id !== pieceKilledId)
@@ -55,12 +53,13 @@ class Board {
         // refresh postionAllowed with a new position
         this.pieces = refreshPositionAllowed(this.pieces)
         this.emitter.emit(EMITTER_ACTION.MOVE_PIECE, {pieceId: this.pieceSelected.id, position: newPosition})
+
+        // sort pieces after movement
+        const piecesSortedAfterMovement = sortByPlayer(this.player, this.pieces)
         // check if it's checkmate
-        const potentialKingCheckMate = fetchPiece("type", TYPE_PIECE.KING, piecesSorted.opponentPiece)[0]
         if(isCheckmate(
-            potentialKingCheckMate.position,
-            potentialKingCheckMate.positionsAllowed,
-            sortByPlayer(this.player, this.pieces).playerPiece.map(piece => piece.positionsAllowed).reduce((acc, currentValue) => acc.concat(currentValue))
+            piecesSortedAfterMovement.opponentPieces,
+            piecesSortedAfterMovement.playerPieces
         )){
             this.win()
             this.emitter.emit(EMITTER_ACTION.WIN, this.player)

@@ -1,6 +1,7 @@
 import Board from "./board-model"
 import { PLAYER, fetchPiece, PIECE_ID } from "../../piece/models"
 import { getById } from "../../piece/models/models-utils/utils-models"
+import ChessEmitter from "../../../view-communication/emitter/emitter-model/emitter-model"
 
 describe('Board', () =>{
     it('constructor', () => {
@@ -65,19 +66,19 @@ describe('Board', () =>{
 
     describe('scenario game', () => {
         it('checkmate', () => {
-            const board = new Board()
+            const board = new Board(new ChessEmitter({on:() => {}, emit:() => {}}))
             // white pawn 6 f4
-            board.selectPiece(PIECE_ID.PAWN_WHITE_6)
-            board.movePiece(37)
+            board.selectPiece(PIECE_ID.PAWN_WHITE_5)
+            board.movePiece(36)
             // black pawn 5 e5
-            board.selectPiece(PIECE_ID.PAWN_BLACK_5)
-            board.movePiece(28)
+            board.selectPiece(PIECE_ID.PAWN_BLACK_6)
+            board.movePiece(29)
             // white pawn 6 e5 (diagonal attack)
-            board.selectPiece(PIECE_ID.PAWN_WHITE_6)
-            board.movePiece(28)
+            board.selectPiece(PIECE_ID.PAWN_WHITE_5)
+            board.movePiece(29)
             // black queen h4 -> checkmate
             board.selectPiece(PIECE_ID.QUEEN_BLACK)
-            board.movePiece(39)
+            board.movePiece(31)
             expect(board.winner).toBe(PLAYER.BLACK)
 
         })

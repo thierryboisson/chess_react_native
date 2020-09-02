@@ -1,12 +1,17 @@
 import { PLAYER, Piece } from "../../piece/models";
 
-export const sortByPlayer = (player: PLAYER, pieces: Array<Piece>): {playerPiece: Array<Piece>, opponentPiece: Array<Piece>} => {
-    const result:{playerPiece: Array<Piece>, opponentPiece: Array<Piece>} = {playerPiece: [], opponentPiece: []}
+/**
+ * Description - methot to sort by currentplayer and opponentPlayer  
+ * @param player 
+ * @param pieces 
+ */
+export const sortByPlayer = (player: PLAYER, pieces: Array<Piece>): {playerPieces: Array<Piece>, opponentPieces: Array<Piece>} => {
+    const result:{playerPieces: Array<Piece>, opponentPieces: Array<Piece>} = {playerPieces: [], opponentPieces: []}
     for(let i = 0; i < pieces.length; i++){
         if(pieces[i].player === player){
-            result.playerPiece.push(pieces[i])
+            result.playerPieces.push(pieces[i])
         } else {
-            result.opponentPiece.push(pieces[i])
+            result.opponentPieces.push(pieces[i])
         }
     }
     return result

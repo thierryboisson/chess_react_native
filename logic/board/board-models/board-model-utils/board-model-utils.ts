@@ -7,16 +7,16 @@ import { sortByPlayer } from "../../board-utils/board-utils"
  * @param pieces 
  */
 export const refreshPositionAllowed = (pieces: Array<Piece>) => {
-    const {opponentPiece, playerPiece} = sortByPlayer(PLAYER.WHITE, pieces)
-    const whitePositionsPiece: Array<number> = playerPiece.map(piece => piece.position)
-    const blackPositionsPiece: Array<number> = opponentPiece.map(piece => piece.position)
-    playerPiece.forEach(whitePiece => {
+    const {opponentPieces, playerPieces} = sortByPlayer(PLAYER.WHITE, pieces)
+    const whitePositionsPiece: Array<number> = playerPieces.map(piece => piece.position)
+    const blackPositionsPiece: Array<number> = opponentPieces.map(piece => piece.position)
+    playerPieces.forEach(whitePiece => {
         whitePiece.calculatePositionAllowed(whitePositionsPiece, blackPositionsPiece)
     })
-    opponentPiece.forEach(blackPiece => {
+    opponentPieces.forEach(blackPiece => {
         blackPiece.calculatePositionAllowed(blackPositionsPiece, blackPositionsPiece)
     })
-    return [...playerPiece, ...opponentPiece]
+    return [...playerPieces, ...opponentPieces]
 }
 
 /**

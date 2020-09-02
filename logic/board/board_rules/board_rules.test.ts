@@ -1,15 +1,43 @@
 import { isCheckmate, isEndangersMovement } from "./board_rules"
 import { Piece, PIECE_ID, PLAYER, TYPE_PIECE } from "../../piece/models"
-import { movePiece } from "../../piece/models/models-utils/utils-models"
+import { movePiece, initPieces, getById } from "../../piece/models/models-utils/utils-models"
+import { sortByPlayer } from "../board-utils/board-utils"
+import { refreshPositionAllowed } from "../board-models/board-model-utils/board-model-utils"
 
 describe('board_rules', () => {
     describe('isCheckmate', () => {
         it('true result', () => {
-            expect(isCheckmate(60, [59,51,52,53,61], [60,59,51,52,53,61])).toBeTruthy()
+            const pieces: Array<Piece> = initPieces()
+            getById(PIECE_ID.PAWN_WHITE_5, pieces)?.move(36)
+            getById(PIECE_ID.PAWN_BLACK_6, pieces)?.move(29)
+            refreshPositionAllowed(pieces)
+            getById(PIECE_ID.QUEEN_BLACK, pieces)?.move(31)
+            refreshPositionAllowed(pieces)
+            const {playerPieces, opponentPieces} = sortByPlayer(PLAYER.BLACK, pieces)
+            expect(isCheckmate(opponentPieces, playerPieces)).toBeTruthy()
         })
-        it('false result', () => {
-            expect(isCheckmate(60, [59,51,52,53,61], [59,51,52,53,61])).not.toBeTruthy()
-            expect(isCheckmate(60, [59,51,52,53,61], [60,51,52,53,61])).not.toBeTruthy()
+        describe('false result', () => {
+            it("no potential attack" ,() =>{
+                const pieces: Array<Piece> = initPieces()
+                getById(PIECE_ID.PAWN_WHITE_5, pieces)?.move(36)
+                getById(PIECE_ID.PAWN_BLACK_6, pieces)?.move(29)
+                refreshPositionAllowed(pieces)
+                getById(PIECE_ID.QUEEN_BLACK, pieces)?.move(22)
+                refreshPositionAllowed(pieces)
+                const {playerPieces, opponentPieces} = sortByPlayer(PLAYER.BLACK, pieces)
+                expect(isCheckmate(opponentPieces, playerPieces)).not.toBeTruthy()
+            })
+            it('potential conterattack', () => {
+                const pieces: Array<Piece> = initPieces()
+                getById(PIECE_ID.PAWN_WHITE_5, pieces)?.move(36)
+                getById(PIECE_ID.PAWN_BLACK_6, pieces)?.move(29)
+                getById(PIECE_ID.PAWN_WHITE_8, pieces)?.move(39)
+                refreshPositionAllowed(pieces)
+                getById(PIECE_ID.QUEEN_BLACK, pieces)?.move(31)
+                refreshPositionAllowed(pieces)
+                const {playerPieces, opponentPieces} = sortByPlayer(PLAYER.BLACK, pieces)
+                expect(isCheckmate(opponentPieces, playerPieces)).not.toBeTruthy()
+            })
         })
     })
 
