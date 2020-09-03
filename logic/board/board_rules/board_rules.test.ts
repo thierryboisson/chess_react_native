@@ -1,4 +1,4 @@
-import { isCheckmate, isEndangersMovement } from "./board_rules"
+import { isCheckmate} from "./board_rules"
 import { Piece, PIECE_ID, PLAYER, TYPE_PIECE } from "../../piece/models"
 import { movePiece, initPieces, getById } from "../../piece/models/models-utils/utils-models"
 import { sortByPlayer } from "../board-utils/board-utils"
@@ -41,7 +41,7 @@ describe('board_rules', () => {
         })
     })
 
-    describe('isEndangersMovement', () => {
+    /*describe('isEndangersMovement', () => {
 
         describe('success', () => {
             it('true result', () => {
@@ -79,5 +79,5 @@ describe('board_rules', () => {
                 fail()
             } catch(errorProcess){}
         })
-    })
+    })*/
 })

@@ -36,7 +36,7 @@ export const isCheckmate = (opponentPieces: Array<Piece>, playerPieces: Array<Pi
  * @param otherPiece 
  * @param positionsAllowed 
  */
-export const isEndangersMovement = (kingPiece: Piece, otherPiece: Array<Piece>, newPosition: number): boolean => {
+/*export const isEndangersMovement = (kingPiece: Piece, otherPiece: Array<Piece>, newPosition: number): boolean => {
     if(kingPiece.type !== TYPE_PIECE.KING){
         throw new Error("kingPiece type is not king")
     }
@@ -50,4 +50,4 @@ export const isEndangersMovement = (kingPiece: Piece, otherPiece: Array<Piece>, 
     })
     const kingPositionAllowed = kingPiece.movementRules.calculate(kingPiece.position, [...positionsPiecePlayer, newPosition], positionsPieceOpponent)
     return isCheckmate(kingPiece.position, kingPositionAllowed, positionPotentialAttack)
-} 
+} */

@@ -83,7 +83,7 @@ export const initPieces = () => {
  */
 export const movePiece = (newPosition: number, piece: Piece, positionsPlayerPiece: Array<number>, positionOpponentPiece: Array<number>) => {
 
-    if(!piece.positionsAllowed.length){
+    if(piece.positionsAllowed.length){
         piece.calculatePositionAllowed(positionsPlayerPiece, positionOpponentPiece)
     }
     piece.move(newPosition)

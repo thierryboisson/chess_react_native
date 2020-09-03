@@ -28,8 +28,9 @@ class ChessEmitter{
                 break;
             }
             case EMITTER_ACTION.MOVE_PIECE:
+                console.log(payload)
                 this.socket.emit(action, {
-                    id: boardPieceIdToViewPieceId(payload.pieceId),
+                    id: boardPieceIdToViewPieceId(payload.id),
                     position: boardPositionToViewPosition(payload.position),
                 })
                 break;

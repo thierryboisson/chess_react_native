@@ -1,5 +1,4 @@
 import ChessListener from "./listener-model"
-import Board from "../../../logic/board/board-models/board-model"
 import { VIEW_PIECE_ID, VIEW_POSITION } from "../../models/view-commincation-models"
 import { PIECE_ID } from "../../../logic/piece/models"
 import { getById } from "../../../logic/piece/models/models-utils/utils-models"
