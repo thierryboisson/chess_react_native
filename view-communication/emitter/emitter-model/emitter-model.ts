@@ -1,10 +1,12 @@
 import { EMITTER_ACTION, MovePieceArgument, SelectPieceArgument, WinArgument } from "../emitter-types/emitter-types"
 import { boardPieceIdToViewPieceId, boardPositionToViewPosition } from "../../utils/view-comnunication-utils"
+import { initBoardStateStore, BoardState } from "../../../logic/board/board-models/board-state"
 
 class ChessEmitter{
     socket:any
     constructor(socket:any){
         this.socket = socket
+        
     }
 
     emit(action: EMITTER_ACTION, payload: any){
