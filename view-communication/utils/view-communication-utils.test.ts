@@ -18,7 +18,7 @@ describe('view-communication-utils', () => {
         expect(viewPieceIdToBoardPieceId(VIEW_PIECE_ID.BISHOP_BLACK_1)).toBe(BOARD_PIECE_ID["bischop-black-1"])
         expect(viewPieceIdToBoardPieceId(VIEW_PIECE_ID.PAWN_BLACK_1)).toBe(BOARD_PIECE_ID["pawn-black-1"])
         expect(viewPieceIdToBoardPieceId(VIEW_PIECE_ID.KING_WHITE)).toBe(BOARD_PIECE_ID["king-white"])
-        expect(viewPieceIdToBoardPieceId(VIEW_PIECE_ID.KNIGHT_WHITE_2)).toBe(BOARD_PIECE_ID["knight_white-2"])
+        expect(viewPieceIdToBoardPieceId(VIEW_PIECE_ID.KNIGHT_WHITE_2)).toBe(BOARD_PIECE_ID["knight-white-2"])
     })
     it('boardPieceIdToViewPieceId()', () => {
         expect(boardPieceIdToViewPieceId(BOARD_PIECE_ID["pawn-white-2"])).toBe(VIEW_PIECE_ID.PAWN_WHITE_2)

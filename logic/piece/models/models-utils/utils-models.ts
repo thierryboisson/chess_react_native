@@ -73,19 +73,3 @@ export const initPieces = () => {
 
     return refreshPositionAllowed(pieces)
 }
-
-/**
- * Description - method to move piece
- * @param newPosition 
- * @param piece 
- * @param positionsPlayerPiece 
- * @param positionOpponentPiece 
- */
-export const movePiece = (newPosition: number, piece: Piece, positionsPlayerPiece: Array<number>, positionOpponentPiece: Array<number>) => {
-
-    if(piece.positionsAllowed.length){
-        piece.calculatePositionAllowed(positionsPlayerPiece, positionOpponentPiece)
-    }
-    piece.move(newPosition)
-    piece.calculatePositionAllowed(positionsPlayerPiece, positionOpponentPiece)
-}

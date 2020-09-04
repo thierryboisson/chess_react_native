@@ -1,5 +1,6 @@
 import { PIECE_ID, PLAYER, TYPE_PIECE, DEFAULT_POSITION, MOVEMENT_RULES } from "./Types";
 import { MovementRules } from "../movement_rules/contract/MovementRules";
+import { PieceRulesError } from "../../../view-communication/listener/error-handler/error-types";
 
 class Piece{
     id: PIECE_ID;
@@ -39,18 +40,18 @@ class Piece{
             this.position = position
 
         } else {
-            throw new Error("this position is not allowed")
+            throw new PieceRulesError("this position is not allowed")
         }
     }
 
     promote(type: TYPE_PIECE){
         if(this.type !== TYPE_PIECE.PAWN){
-            throw new Error("the piece type have to be a pawn to promote")
+            throw new PieceRulesError("the piece type have to be a pawn to promote")
             
         } 
 
         if(type === TYPE_PIECE.PAWN || type === TYPE_PIECE.KING){
-            throw new Error("new piece type can't be pawn or king")
+            throw new PieceRulesError("new piece type can't be pawn or king")
         }
 
         this.type = type

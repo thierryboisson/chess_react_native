@@ -6,7 +6,8 @@ export enum EMITTER_ACTION {
     MOVE_PIECE="MOVE_PIECE",
     KILL_PIECE="KILL_PIECE",
     SELECT_PIECE="SELECT_PIECE",
-    WIN="WIN"
+    WIN="WIN",
+    ERROR="ERROR"
 }
 
 export interface MovePieceArgument {

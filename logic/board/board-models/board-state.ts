@@ -1,7 +1,8 @@
 import { Piece, PLAYER, PIECE_ID, TYPE_PIECE } from "../../piece/models";
-import { getById, movePiece, fetchPiece, initPieces } from "../../piece/models/models-utils/utils-models";
+import { getById, fetchPiece, initPieces } from "../../piece/models/models-utils/utils-models";
 import { sortByPlayer } from "../board-utils/board-utils";
 import { refreshPositionAllowed } from "./board-model-utils/board-model-utils";
+import { BoardRulesError } from "../../../view-communication/listener/error-handler/error-types";
 
 export interface BoardState {
     pieces: Array<Piece>
@@ -20,12 +21,14 @@ export const movePieceInBoard = (state: BoardState, pieceId: PIECE_ID, newPositi
     const {pieces} = state;
     const pieceToMove = getById(pieceId, pieces)
     
-    if(pieceToMove){
-       pieceToMove.move(newPosition)
-    } else {
-        console.warn(new Error(`${pieceId} is not pieces list`))
-        return false
+    if(!pieceToMove){
+       throw new BoardRulesError(`${pieceId} is not pieces list`)
+    } 
+    if(pieceToMove.player !== state.currentPlayer){
+        throw new BoardRulesError(`the piece ${pieceId} does not belong to currentPlayer ${state.currentPlayer}`)
     }
+    
+    pieceToMove.move(newPosition)
 
     state.pieces = refreshPositionAllowed(pieces)
 
@@ -33,6 +36,9 @@ export const movePieceInBoard = (state: BoardState, pieceId: PIECE_ID, newPositi
 }
 
 export const killPieceInBoard = (pieces: Array<Piece>, pieceIdToBeMoved: PIECE_ID, attackPosition: number):PIECE_ID|null => {
+    if(!getById(pieceIdToBeMoved, pieces)){
+        throw new BoardRulesError(`${pieceIdToBeMoved} is not pieces list`)
+    }
     const pieceKilled = pieces.filter(piece => piece.id !== pieceIdToBeMoved && piece.position === attackPosition)[0]
     if(pieceKilled){
         pieces = pieces.filter(piece => piece.id !== pieceKilled.id)

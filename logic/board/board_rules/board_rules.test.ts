@@ -1,6 +1,6 @@
 import { isCheckmate} from "./board_rules"
 import { Piece, PIECE_ID, PLAYER, TYPE_PIECE } from "../../piece/models"
-import { movePiece, initPieces, getById } from "../../piece/models/models-utils/utils-models"
+import { initPieces, getById } from "../../piece/models/models-utils/utils-models"
 import { sortByPlayer } from "../board-utils/board-utils"
 import { refreshPositionAllowed } from "../board-models/board-model-utils/board-model-utils"
 

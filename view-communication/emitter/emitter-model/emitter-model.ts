@@ -28,7 +28,6 @@ class ChessEmitter{
                 break;
             }
             case EMITTER_ACTION.MOVE_PIECE:
-                console.log(payload)
                 this.socket.emit(action, {
                     id: boardPieceIdToViewPieceId(payload.id),
                     position: boardPositionToViewPosition(payload.position),
@@ -44,6 +43,12 @@ class ChessEmitter{
                     winner: payload.toLowerCase()
                 })
                 break;
+            case EMITTER_ACTION.ERROR:
+                console.log({action, payload})
+                this.socket.emit(action, {
+                    message: payload.error
+                })
+                break;    
             default:
                 throw new Error(`${action} doesn't exist`);
         }

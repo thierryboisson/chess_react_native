@@ -1,7 +1,8 @@
 import { initPieces, TYPE_PIECE, DEFAULT_POSITION, PIECE_ID } from ".."
-import { fetchPiece, fetchByPositions, getByPosition, movePiece } from "./utils-models";
+import { fetchPiece, fetchByPositions, getByPosition } from "./utils-models";
 import { PLAYER } from "../Types";
 import Piece from "../Piece";
+import { refreshPositionAllowed } from "../../../board/board-models/board-model-utils/board-model-utils";
 
 describe('utils-models', () => {
 
@@ -66,25 +67,4 @@ describe('utils-models', () => {
         expect(piece).toBeNull()
        }) 
     })
-
-    describe('movePiece', () => {
-        it('success' , () => {
-            const piece = new Piece(PIECE_ID.PAWN_BLACK_5, PLAYER.BLACK, TYPE_PIECE.PAWN)
-            movePiece(28, piece, [], [])
-            expect(piece.position).toBe(28)
-            expect(piece.hasBeenPlayerOneTime).toBe(true)
-            expect(piece.positionsAllowed).toStrictEqual([36])
-        })
-
-        it('failure', () => {
-            const piece = new Piece(PIECE_ID.PAWN_BLACK_5, PLAYER.BLACK, TYPE_PIECE.PAWN)
-            try {
-                // new position is not allowed by piece movement rules
-                movePiece(21, piece, [36], [])
-                fail()
-            } catch (errorProcess) { }
-        })
-    })
-
-
 })

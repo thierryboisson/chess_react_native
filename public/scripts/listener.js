@@ -17,3 +17,6 @@ socket.on(LISTENER_ACTIONS.SELECT_PIECE, function ({allowedPositions}) {
 socket.on(LISTENER_ACTIONS.WIN, function({winner}){
     win(winner)
 })
+socket.on(LISTENER_ACTIONS.ERROR, function ({message}){
+    console.error(message)
+})

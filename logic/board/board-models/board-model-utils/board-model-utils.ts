@@ -18,25 +18,3 @@ export const refreshPositionAllowed = (pieces: Array<Piece>) => {
     })
     return [...playerPieces, ...opponentPieces]
 }
-
-/**
- * Description - method to check is there are attack and update pieves in the list
- * @param attackPosition 
- * @param opponentPieces 
- * @param pieces 
- */
-export function attackPiece(attackPosition: number, opponentPieces: Array<Piece>, pieces: Array<Piece>):PIECE_ID|null{
-    const pieceOpponentAttacked = getByPosition(attackPosition, opponentPieces)
-    if(pieceOpponentAttacked !== null){
-        return pieceOpponentAttacked.id   
-    }
-    return null
-}
-
-/**
- * Description - method to switch
- * @param player 
- */
-export function changePlayer(player:PLAYER):PLAYER{
-    return player === PLAYER.WHITE ? PLAYER.BLACK : PLAYER.WHITE
-}
