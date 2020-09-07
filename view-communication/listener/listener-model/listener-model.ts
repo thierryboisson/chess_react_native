@@ -21,13 +21,14 @@ class ChessListener {
 
     selectPiece(pieceId: VIEW_PIECE_ID){
         try {
-            this.pieceIdSelected = PIECE_ID[viewPieceIdToBoardPieceId(pieceId)]
-            if(!this.pieceIdSelected){
+            const newPieceIdSelected: PIECE_ID = PIECE_ID[viewPieceIdToBoardPieceId(pieceId)]
+            if(!newPieceIdSelected){
                 throw new ListenerError("this piece id doesn't exist")
             }
             if(this.boardState.pieces){
-                const pieceToMove = getById(this.pieceIdSelected, this.boardState.pieces)
+                const pieceToMove = getById(newPieceIdSelected, this.boardState.pieces)
                 if(pieceToMove?.player === this.boardState.currentPlayer){
+                    this.pieceIdSelected = newPieceIdSelected
                     const positionsAllowed = getById(this.pieceIdSelected, this.boardState.pieces)?.positionsAllowed 
                     this.emitter.emit(EMITTER_ACTION.SELECT_PIECE, positionsAllowed)
                 }
@@ -47,7 +48,8 @@ class ChessListener {
             }
             const newPosition = viewPositionToBoardPosition(position)
             if(movePieceInBoard(this.boardState, this.pieceIdSelected, newPosition)){
-                const pieceIdToBeKilled = killPieceInBoard(this.boardState.pieces, this.pieceIdSelected, newPosition)
+
+                const pieceIdToBeKilled = killPieceInBoard(this.boardState, this.pieceIdSelected, newPosition)
                 if(pieceIdToBeKilled){
                     this.emitter.emit(EMITTER_ACTION.KILL_PIECE, {id: pieceIdToBeKilled})
                 }

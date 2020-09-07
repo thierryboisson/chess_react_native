@@ -44,7 +44,6 @@ class ChessEmitter{
                 })
                 break;
             case EMITTER_ACTION.ERROR:
-                console.log({action, payload})
                 this.socket.emit(action, {
                     message: payload.error
                 })

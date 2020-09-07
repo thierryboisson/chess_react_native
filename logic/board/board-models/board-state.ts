@@ -35,13 +35,13 @@ export const movePieceInBoard = (state: BoardState, pieceId: PIECE_ID, newPositi
     return true
 }
 
-export const killPieceInBoard = (pieces: Array<Piece>, pieceIdToBeMoved: PIECE_ID, attackPosition: number):PIECE_ID|null => {
-    if(!getById(pieceIdToBeMoved, pieces)){
+export const killPieceInBoard = (state: BoardState, pieceIdToBeMoved: PIECE_ID, attackPosition: number):PIECE_ID|null => {
+    if(!getById(pieceIdToBeMoved, state.pieces)){
         throw new BoardRulesError(`${pieceIdToBeMoved} is not pieces list`)
     }
-    const pieceKilled = pieces.filter(piece => piece.id !== pieceIdToBeMoved && piece.position === attackPosition)[0]
+    const pieceKilled = state.pieces.filter(piece => piece.id !== pieceIdToBeMoved && piece.position === attackPosition)[0]
     if(pieceKilled){
-        pieces = pieces.filter(piece => piece.id !== pieceKilled.id)
+        state.pieces = state.pieces.filter(piece => piece.id !== pieceKilled.id)
         return pieceKilled.id
     }
     return null
