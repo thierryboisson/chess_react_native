@@ -14,7 +14,7 @@ export const refreshPositionAllowed = (pieces: Array<Piece>) => {
         whitePiece.calculatePositionAllowed(whitePositionsPiece, blackPositionsPiece)
     })
     opponentPieces.forEach(blackPiece => {
-        blackPiece.calculatePositionAllowed(blackPositionsPiece, blackPositionsPiece)
+        blackPiece.calculatePositionAllowed(blackPositionsPiece, whitePositionsPiece)
     })
     return [...playerPieces, ...opponentPieces]
 }
